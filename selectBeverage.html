@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Beverage</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #b6ad56;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .beverage-text {
+            color: black;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .beverage-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+        }
+
+        .beverage-box {
+            width: 100%;
+            height: 150px;
+            background-color: white;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer; /* Change cursor to pointer on hover */
+            text-decoration: none; /* Remove default link underline */
+            color: black; /* Change text color */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Coffee Order System</div>
+    <div class="container">
+        <div class="beverage-text">Select the beverage</div>
+        <div class="beverage-grid">
+            <a href="addCondiment.html?beverage=Dark%20Roast" class="beverage-box">
+                <h3>Dark Roast</h3>
+            </a>
+            <a href="addCondiment.html?beverage=House%20Blend" class="beverage-box">
+                <h3>House Blend</h3>
+            </a>
+            <a href="addCondiment.html?beverage=Espresso" class="beverage-box">
+                <h3>Espresso</h3>
+            </a>
+            <a href="addCondiment.html?beverage=Decaf" class="beverage-box">
+                <h3>Decaf</h3>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Condiment</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #b6ad56;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .status {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: flex-end; /* Align items to the right side of the screen */
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .add-condiment-text {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .condiment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+        }
+
+        .condiment-box {
+            width: 150px;
+            height: 150px;
+            background-color: white;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer; /* Change cursor to pointer on hover */
+            text-decoration: none; /* Remove default link underline */
+            color: black; /* Change text color */
+        }
+
+        .cart {
+            width: 200px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px; /* Add margin to separate from the Confirm Order button */
+        }
+
+        .cart-item {
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+
+        .confirm-order-box {
+            width: 150px;
+            height: 50px;
+            background-color: #3c3c3c;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            color: white;
+            margin-bottom: 20px; /* Add margin to separate from the bottom */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Coffee Order System</div>
+    <div class="status">Order Status</div>
+    <div class="container">
+        <div class="add-condiment-text">Add a condiment</div>
+        <div class="condiment-grid">
+            <div class="condiment-box" onclick="toggleCartItem('Milk')">Milk</div>
+            <div class="condiment-box" onclick="toggleCartItem('Mocha')">Mocha</div>
+            <div class="condiment-box" onclick="toggleCartItem('Soy')">Soy</div>
+            <div class="condiment-box" onclick="toggleCartItem('Whip')">Whip</div>
+        </div>
+        <div class="cart" id="cart">
+            <!-- Cart content will be dynamically added here -->
+        </div>
+        <div class="confirm-order-box" onclick="confirmOrder()">Confirm Order</div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var beverage = urlParams.get('beverage');
+            
+            if (beverage) {
+                var cart = document.getElementById("cart");
+                var beverageItem = document.createElement("div");
+                beverageItem.textContent = beverage;
+                beverageItem.classList.add("cart-item");
+                beverageItem.onclick = function() {
+                    cart.removeChild(this);
+                    window.location.href = "selectBeverage.html";
+                };
+                cart.insertBefore(beverageItem, cart.firstChild); // Insert at the top of the cart
+            }
+        };
+
+        function toggleCartItem(condiment) {
+            var cart = document.getElementById("cart");
+            var cartItems = cart.children;
+
+            // Check if condiment is already in cart
+            var alreadyInCart = false;
+            for (var i = 0; i < cartItems.length; i++) {
+                if (cartItems[i].textContent === condiment) {
+                    cart.removeChild(cartItems[i]);
+                    alreadyInCart = true;
+                    break;
+                }
+            }
+
+            // If condiment not in cart, add it
+            if (!alreadyInCart) {
+                var newCartItem = document.createElement("div");
+                newCartItem.textContent = condiment;
+                newCartItem.classList.add("cart-item");
+                newCartItem.onclick = function() {
+                    cart.removeChild(this);
+                };
+                cart.appendChild(newCartItem);
+            }
+        }
+
+        function confirmOrder() {
+            // Redirect to orderConfirmation.html
+            window.location.href = "orderConfirmation.html";
+        }
+    </script>
+</body>
+</html>
+
+

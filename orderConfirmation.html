@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #b6ad56;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .confirmation-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .confirmation-info {
+            color: white;
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Coffee Order System</div>
+    <div class="confirmation-text">Order Placed</div>
+    <div class="confirmation-info" id="confirmation-info">
+        <!-- Order details will be dynamically added here -->
+    </div>
+
+    <script>
+        // Function to parse URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+
+        // Function to fetch order details and display on the page
+        function fetchOrderDetails() {
+            var receiptId = getUrlParameter('receiptId');
+            var description = getUrlParameter('description');
+            var totalCost = getUrlParameter('totalCost');
+
+            var confirmationInfo = document.getElementById('confirmation-info');
+            confirmationInfo.innerHTML = "Receipt ID: " + receiptId + "<br>" +
+                                         "Description: " + description + "<br>" +
+                                         "Total Cost: $" + totalCost;
+        }
+
+        // Call fetchOrderDetails function when the page loads
+        window.onload = fetchOrderDetails;
+    </script>
+</body>
+</html>
