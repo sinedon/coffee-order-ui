@@ -112,7 +112,7 @@
         window.onload = function() {
             var urlParams = new URLSearchParams(window.location.search);
             var beverage = urlParams.get('beverage');
-            
+    
             if (beverage) {
                 var cart = document.getElementById("cart");
                 var beverageItem = document.createElement("div");
@@ -125,11 +125,11 @@
                 cart.insertBefore(beverageItem, cart.firstChild); // Insert at the top of the cart
             }
         };
-
+    
         function toggleCartItem(condiment) {
             var cart = document.getElementById("cart");
             var cartItems = cart.children;
-
+    
             // Check if condiment is already in cart
             var alreadyInCart = false;
             for (var i = 0; i < cartItems.length; i++) {
@@ -139,7 +139,7 @@
                     break;
                 }
             }
-
+    
             // If condiment not in cart, add it
             if (!alreadyInCart) {
                 var newCartItem = document.createElement("div");
@@ -151,12 +151,60 @@
                 cart.appendChild(newCartItem);
             }
         }
+    
+        let host = "https://coffee-services-latest.onrender.com";
+    
+        async function confirmOrder() {
+            let message = "";
 
-        function confirmOrder() {
-            // Redirect to orderConfirmation.html
-            window.location.href = "orderConfirmation.html";
+            // Get all condiments in the cart
+            let cart = document.getElementById("cart");
+            let cartItems = cart.children;
+            let condiments = [];
+
+            for (let i = 0; i < cartItems.length; i++) {
+                condiments.push(cartItems[i].textContent);
+            }
+
+            // Prepare data
+            let orderData = {
+                condiments: condiments
+            };
+
+            console.log("JSON Data Sent to Backend:", JSON.stringify(orderData));
+
+            // Prepare request
+            let request = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(orderData)
+            };
+
+            try {
+                // Send request to backend
+                let response = await fetch(host + "/orders", request);
+                if (response.status == 201) { // Checking for status 201 for created
+                    // If successful, proceed to Order Confirmation page
+                    window.location.href = "orderConfirmation.html";
+                } else {
+                    // If not successful, handle error
+                    console.log(response);
+                    message = "Something went wrong! Condiment data could not be saved.";
+            }
+            } catch (error) {
+                // Handle network errors
+                console.error(error);
+                message = "Something went wrong! Unable to connect to the server.";
+            }
+
+            // Show message to the user if needed
+            if (message) {
+                alert(message);
+            }
         }
-    </script>
+    </script>    
 </body>
 </html>
 
