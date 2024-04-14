@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="navbar.css">
     <title>Order Confirmation</title>
     <style>
         body {
@@ -39,12 +40,17 @@
     </style>
 </head>
 <body>
+    <ul class="topnav">
+        <li><a class="active" href="index.html">Home</a></li>      
+        <li><a href="selectBeverage.html">Select Beverage</a></li>
+        <li class="right"><a  href="login.html">Login</a></li>
+    </ul>
     <div class="header">Coffee Order System</div>
     <div class="confirmation-text">Order Placed</div>
     <div class="confirmation-info" id="confirmation-info">
         <!-- Order details will be dynamically added here -->
     </div>
-
+    <script src="configuration.js"></script>
     <script>
         // Function to parse URL parameters
         function getUrlParameter(name) {
