@@ -61,14 +61,20 @@
 
         // Function to fetch order details and display on the page
         function fetchOrderDetails() {
-            var receiptId = getUrlParameter('receiptId');
-            var description = getUrlParameter('description');
-            var totalCost = getUrlParameter('totalCost');
+            var receiptData = JSON.parse(localStorage.getItem('receiptData'));
 
-            var confirmationInfo = document.getElementById('confirmation-info');
-            confirmationInfo.innerHTML = "Receipt ID: " + receiptId + "<br>" +
-                                         "Description: " + description + "<br>" +
-                                         "Total Cost: $" + totalCost;
+            if (receiptData) {
+                var receiptId = receiptData.id;
+                var description = receiptData.description;
+                var totalCost = receiptData.cost;
+
+                var confirmationInfo = document.getElementById('confirmation-info');
+                confirmationInfo.innerHTML = "Receipt ID: " + receiptId + "<br>" +
+                                            "Description: " + description + "<br>" +
+                                            "Total Cost: $" + totalCost;
+            } else {
+                confirmationInfo.innerHTML = "No receipt data available";
+            }
         }
 
         // Call fetchOrderDetails function when the page loads
