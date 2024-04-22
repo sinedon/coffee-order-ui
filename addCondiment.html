@@ -98,8 +98,6 @@
         <li><a href="selectBeverage.html">Select Beverage</a></li>
         <li class="right"><a  href="login.html">Login</a></li>
     </ul>
-    <div class="header">Coffee Order System</div>
-    <div class="status">Order Status</div>
     <div class="container">
         <div class="add-condiment-text">Add a condiment</div>
         <div class="condiment-grid">
@@ -163,28 +161,34 @@
         async function confirmOrder() {
             let message = "";
 
+            // Get the beverage from the URL
+            let urlParams = new URLSearchParams(window.location.search);
+            let beverage = urlParams.get('beverage');
             // Get all condiments in the cart
             let cart = document.getElementById("cart");
             let cartItems = cart.children;
             let condiments = [];
 
-            for (let i = 0; i < cartItems.length; i++) {
+            for (let i = 1; i < cartItems.length; i++) {
                 condiments.push(cartItems[i].textContent);
             }
 
             // Prepare data
             let orderData = {
+                beverage: beverage,
                 condiments: condiments
             };
 
             console.log("JSON Data Sent to Backend:", JSON.stringify(orderData));
+
+            console.log("Token:", configuration.token());
 
             // Prepare request
             let request = {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    'Authorization': 'Bearer ${configuration.token()}'
+                    "Authorization": `Bearer ${configuration.token()}`
                 },
                 body: JSON.stringify(orderData)
             };
