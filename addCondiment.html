@@ -200,7 +200,6 @@
                     // If unauthorized, remove token from local storage and logout
                     logout();
                 } else if (response.status == 201) { // Checking for status 201 for created
-                    // If successful, proceed to Order Confirmation page
                     let receiptData = await response.json();
                     localStorage.setItem('receiptData', JSON.stringify(receiptData));
                     window.location.href = "orderConfirmation.html";
